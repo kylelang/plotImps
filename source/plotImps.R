@@ -3,7 +3,6 @@
 ### Created:  2015-OCT-02
 ### Modified: 2017-MAR-30
 
-
 plotImps <- function(impList, rMat, typeVec, targetVar = NULL, interactive = FALSE)
 {
     nImps          <- length(impList)
@@ -29,8 +28,9 @@ plotImps <- function(impList, rMat, typeVec, targetVar = NULL, interactive = FAL
         if(catTarget)
             imps <- lapply(impList,
                            function(x, rMat, index)
-                               as.numeric(factor(x[rMat[ , index], index])),
-                           rMat  = rMat,
+                                        #as.numeric(factor(x[rMat[ , index], index])),
+                               x[rMat[ , index], index],
+                               rMat  = rMat,
                            index = i)
         else
             imps <- lapply(impList,
@@ -39,24 +39,7 @@ plotImps <- function(impList, rMat, typeVec, targetVar = NULL, interactive = FAL
                            index = i)
 
         if(catTarget) {
-            obsTab             <- rep(0, length(levels(target)))
-            names(obsTab)      <- levels(target)
-            tmp                <- table(as.numeric(target))
-            obsTab[names(tmp)] <- tmp
-
-            impTab <- do.call("rbind",
-                              lapply(
-                                  lapply(imps, table),
-                                  FUN = function(x, levs) {
-                                      tmp <- rep(NA, length(levs))
-                                      tmp[levs %in% names(x)] <- x
-                                      tmp
-                                  },
-                                  levs = levels(target)
-                                  )
-                              )
-
-            hMat <- rbind(obsTab, impTab)
+            hMat <- rbind(table(target), do.call("rbind", lapply(imps, table)))
             yMax <- max(hMat, na.rm = TRUE)
 
             barplot(height = hMat,
@@ -89,7 +72,7 @@ plotImps <- function(impList, rMat, typeVec, targetVar = NULL, interactive = FAL
             plot(NULL,
                  main =
                      paste0("Densities of Imputations (Red) vs.\n",
-                            "Observed Data (Black) for ",
+                            "Observed Data (Blue) for ",
                             targetName),
                  ylab = "Density",
                  xlab = paste0("Value of ", targetName),
@@ -102,7 +85,7 @@ plotImps <- function(impList, rMat, typeVec, targetVar = NULL, interactive = FAL
                 for(m in 1 : length(impList))
                     points(y = 0, x = dens2[[m]], col = "red")
 
-            lines(dens1, lwd = 3)
+            lines(dens1, lwd = 3, col = "blue")
         }
         if(interactive & length(indexVec) > 1)
             readline("Hit any key to generate the next plot... ")
