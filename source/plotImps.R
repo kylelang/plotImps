@@ -1,7 +1,7 @@
 ### Title:    Create Imputation Diagnostic Plots
 ### Author:   Kyle M. Lang
 ### Created:  2015-OCT-02
-### Modified: 2017-MAR-30
+### Modified: 2017-JUN-07
 
 plotImps <- function(impList, rMat, typeVec, targetVar = NULL, interactive = FALSE)
 {
@@ -28,7 +28,6 @@ plotImps <- function(impList, rMat, typeVec, targetVar = NULL, interactive = FAL
         if(catTarget)
             imps <- lapply(impList,
                            function(x, rMat, index)
-                                        #as.numeric(factor(x[rMat[ , index], index])),
                                x[rMat[ , index], index],
                                rMat  = rMat,
                            index = i)
@@ -48,7 +47,7 @@ plotImps <- function(impList, rMat, typeVec, targetVar = NULL, interactive = FAL
                     border = c("blue", rep("red", nImps)),
                     ylim   = c(0, yMax),
                     space  = c(0, nImps * 0.1),
-                    width  = c(100, rep(1, nImps)),
+                    width  = c(nImps, rep(1, nImps)),
                     main   =
                         paste0("Imputed (Red) vs. Observed (Blue) Values\nof ",
                                targetName),
