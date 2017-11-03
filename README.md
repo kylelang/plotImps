@@ -4,4 +4,4 @@ This repository is dead. The `plotImps` function has been folded into the
 
 - You can access the `plotImps` function via the **SURF** package here: [SURF][].
 
-[SURF] http://github.com/kylelang/SURF
+[SURF]: http://github.com/kylelang/SURF
