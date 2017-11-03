@@ -1,5 +1,7 @@
 # plotImps
-Plot imputed vs. observed values to facilitate multiple imputation diagnostics
+This repository is dead. The `plotImps` function has been folded into the 
+**SURF** package.
 
-This function creates superimposed kernel density plots or barplots (as appropriate) to allow visual comparison of imputed and observed data.
-These plots are intended to help check the sanity of multiply imputed data.
+- You can access the `plotImps` function via the **SURF** package here: [SURF][].
+
+[SURF] http://github.com/kylelang/SURF
